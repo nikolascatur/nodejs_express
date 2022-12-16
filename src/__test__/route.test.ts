@@ -19,4 +19,16 @@ describe("POST /register", () => {
     const response = await request(app).get("/").query({ name: "nikoo" });
     expect(response.text).toBe('{"message":"nikoo"}');
   });
+
+  it("get url param ", async () => {
+    const response = await request(app)
+      .get("/hello/world")
+      .query({ name: "World" });
+    expect(response.body).toEqual({
+      path: "/hello/world",
+      originalUrl: "/hello/world?name=World",
+      hostName: "127.0.0.1",
+      protocol: "http",
+    });
+  });
 });
