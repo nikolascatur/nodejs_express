@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { request } from "http";
 
 const router = express.Router();
@@ -67,6 +67,62 @@ router.get("/redirect", (req: Request, res: Response) => {
 //middleware to inject time now
 router.get("/timenow", (req: Request, res: Response) => {
   res.send(`Hello, Today is ${req.requestTime}`);
+});
+
+//path using regex
+router.get("/regex/string/*.json", (req: Request, res: Response) => {
+  res.send(`original Url : ${req.originalUrl}`);
+});
+
+//path using regex with number param
+router.get("/regex/number/*(\\d+).json", (req: Request, res: Response) => {
+  res.send(`url number : ${req.originalUrl}`);
+});
+
+//router parameter testing
+router.get("/product/:id", (req: Request, res: Response) => {
+  res.send(`param id ${req.params.id}`);
+});
+
+//router parameter with regex
+router.get("/product/number/:id(\\d+)", (req: Request, res: Response) => {
+  res.send(`param with number ${req.params.id}`);
+});
+
+//router function
+router
+  .route("/user")
+  .get((req: Request, res: Response) => {
+    res.send("Get User");
+  })
+  .post((req: Request, res: Response) => {
+    res.send("Create user");
+  })
+  .put((req: Request, res: Response) => {
+    res.send("update user");
+  });
+
+// midleware di dalam router
+const midlewwareTest = (req: Request, res: Response, next: NextFunction) => {
+  res.send("From midleware test");
+  next();
+};
+router.use(midlewwareTest);
+
+//request body in json form
+router.use(express.json());
+router.post("/json", (req: Request, res: Response) => {
+  const name = req.body.name;
+  res.json({
+    hello: `Hello ${name}`,
+  });
+});
+router.use(express.urlencoded({ extended: false }));
+router.post("/form", (req: Request, res: Response) => {
+  const name = req.body.name;
+  res.json({
+    hello: `Hello ${name}`,
+  });
 });
 
 export default router;

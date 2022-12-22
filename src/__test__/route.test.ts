@@ -96,4 +96,32 @@ describe("POST /register", () => {
     expect(response.text).toContain("Hello, Today is");
     console.info(response.text);
   });
+
+  it("test routing dynamix regex", async () => {
+    const response = await request(app)
+      .get("/regex/string/hahaha.json")
+      .query({ apiKey: "123" });
+    expect(response.text).toContain("original Url :");
+    console.info(response.text);
+  });
+
+  // it("test request body json", async () => {
+  //   const response = await request(app)
+  //     .post("/json")
+  //     .set("Content-Type", "application/json")
+  //     .send({ name: "World" });
+
+  //   expect(response.body).toEqual({
+  //     hello: `Hello World`,
+  //   });
+  // });
+  it("test request form ", async () => {
+    const response = await request(app)
+      .post("/form")
+      .set("Content-type", "application/x-www-form-urlencoded")
+      .send("name=World");
+    expect(response.body).toEqual({
+      hello: `Hello World`,
+    });
+  });
 });
