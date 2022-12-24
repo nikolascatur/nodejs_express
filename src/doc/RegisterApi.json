@@ -1,0 +1,49 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Bank Register"
+
+    },
+    "servers": [
+        {
+            "description": "Bank Api",
+            "url":"http://localhost"
+
+        }
+    ],
+    "paths": {
+        "/login": {
+            "post":{
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrUpdateTodolist"
+                            },
+                            "examples": {
+                                "typescript": {
+                                    "value": {
+                                        "username": "nicolas",
+                                        "password": "123456"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "content success",
+                        "content": {
+                            "application/json": {
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
