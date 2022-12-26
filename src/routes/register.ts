@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { createUser } from "../data/respository";
+import { createUser, findUser } from "../data/respository";
 
 const registerRouter = express.Router();
 
@@ -20,6 +20,21 @@ registerRouter.post("/createuser", async (req: Request, res: Response) => {
     res.status(200).json("USER has been created");
   } else {
     res.status(402).json("create user failed");
+  }
+});
+
+registerRouter.get("/user", async (req: Request, res: Response) => {
+  if (!req.query.username) {
+    res.status(400).json(`Username not found`);
+  }
+
+  const username = req.query.username;
+  const result = await findUser(`${username}`);
+  console.info(`username ${username}  resulttt ${result}`);
+  if (result) {
+    res.status(200).json(result);
+  } else {
+    res.status(401).json("Error calling user");
   }
 });
 
