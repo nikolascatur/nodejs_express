@@ -1,14 +1,28 @@
 import app from "../app";
 import request from "supertest";
 
-describe("POST /register", () => {
-  it("test create user", async () => {
+// describe("POST /register", () => {
+//   it("test adding balance user", async () => {
+//     const res = await request(app)
+//       .post("/transaction/addbalance")
+//       .set("Content-type", "application/json")
+//       .send({ balance: 40, username: "nicolas" });
+//   });
+describe("POST /addbalance", () => {
+  it("test adding balance user", async () => {
     const res = await request(app)
-      .post("/createuser")
-      .set("Content-Type", "application/json")
-      .send({ username: "paijo", password: "123456" });
+      .post("/transaction/addbalance")
+      .set("Content-type", "application/json")
+      .send({ balance: 1, username: "nicolas" });
     expect(res.statusCode).toEqual(200);
   });
+  // it("test create user", async () => {
+  //   const res = await request(app)
+  //     .post("/createuser")
+  //     .set("Content-Type", "application/json")
+  //     .send({ username: "paijo", password: "123456" });
+  //   expect(res.statusCode).toEqual(200);
+  // });
   // it("test get user ", async () => {
   //   const res = await request(app)
   //     .get("/user")

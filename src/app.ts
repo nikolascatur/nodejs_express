@@ -1,6 +1,7 @@
 import express, { Application, NextFunction, Request, Response } from "express";
 import router from "./routes/explore";
 import registerRouter from "./routes/register";
+import transactionRoutes from "./routes/transaction";
 
 // const logger = (req: Request, res: Response, next: NextFunction) => {
 //   console.info(`logger info ${req.method} ${req.originalUrl}`);
@@ -38,5 +39,6 @@ const app: Application = express();
 app.use(express.json());
 // app.use("/", router);
 app.use("/", registerRouter);
+app.use("/transaction", transactionRoutes);
 
 export default app;

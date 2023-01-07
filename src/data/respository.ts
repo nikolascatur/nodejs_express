@@ -1,6 +1,6 @@
 import { PoolManager } from "./connection_db";
 import { user } from "./model/user";
-import { UserQuery } from "./query/User_query";
+import { TransactionQuery, UserQuery } from "./query/User_query";
 
 const poolManager = new PoolManager();
 poolManager.init();
@@ -20,4 +20,15 @@ export const findUser = async (userName: string) => {
   return result;
 };
 
-export const addBalance = async (userName: string, balance: number) => {};
+export const addBalance = async (userName: string, balance: number) => {
+  const result = await poolManager.execute<
+    Array<Array<{ "@id:=UserId": number }>>
+  >(TransactionQuery.AddBalance, [`${balance}`, userName]);
+  let hasil: number = 0;
+  result.map((res) => {
+    if (res !== undefined && res.length > 0) {
+      hasil = res.length;
+    }
+  });
+  return hasil > 0;
+};
