@@ -32,3 +32,24 @@ export const addBalance = async (userName: string, balance: number) => {
   });
   return hasil > 0;
 };
+
+export const transferBalance = async (
+  src: string,
+  dest: string,
+  nominal: number
+) => {
+  const result = await poolManager.execute<
+    Array<
+      Array<{
+        RowDataPacket: { "@idsource:=UserId": number | "@iddest:=UserId" };
+      }>
+    >
+  >(TransactionQuery.TransferBalance, [src, dest, nominal]);
+  let hasil: number = 0;
+  result.map((res) => {
+    if (res !== undefined && res.length > 0) {
+      hasil = res.length;
+    }
+  });
+  return hasil;
+};

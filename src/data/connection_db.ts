@@ -31,6 +31,7 @@ export class PoolManager {
 
       return new Promise<T>((resolve, reject) => {
         pool.query(query, params, (error, results) => {
+          console.info(results);
           if (error) reject(error);
           else resolve(results);
         });

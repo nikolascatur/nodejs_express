@@ -8,12 +8,21 @@ import request from "supertest";
 //       .set("Content-type", "application/json")
 //       .send({ balance: 40, username: "nicolas" });
 //   });
-describe("POST /addbalance", () => {
+// describe("POST /addbalance", () => {
+//   it("test adding balance user", async () => {
+//     const res = await request(app)
+//       .post("/transaction/addbalance")
+//       .set("Content-type", "application/json")
+//       .send({ balance: 1, username: "nicolas" });
+//     expect(res.statusCode).toEqual(200);
+//   });
+
+describe("POST /transfer", () => {
   it("test adding balance user", async () => {
     const res = await request(app)
-      .post("/transaction/addbalance")
+      .post("/transaction/transfer")
       .set("Content-type", "application/json")
-      .send({ balance: 1, username: "nicolas" });
+      .send({ source: "nicolas", destination: "paijo", nominal: 1 });
     expect(res.statusCode).toEqual(200);
   });
   // it("test create user", async () => {

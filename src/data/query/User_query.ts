@@ -7,4 +7,5 @@ export const UserQuery = {
 
 export const TransactionQuery = {
   AddBalance: `call add_balance(?,?)`,
+  TransferBalance: `call transfer_balance(?,?,?)`,
 };
